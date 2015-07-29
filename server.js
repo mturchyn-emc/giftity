@@ -21,7 +21,7 @@ var flash    = require('connect-flash');
 require('./config/passport')(passport); // pass passport for configuration
 
 
-
+app.use(express.static(__dirname + '/public'));
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
@@ -41,25 +41,34 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-app.use(
 
-	connection(mysql,{
+var pool  = mysql.createPool({
+	host: 'localhost',
+	user: 'root',
+	password : '',
+	port : 3306, //port mysql
+	database:'giftify',
+	debug: true
+});
 
-		host: 'localhost',
-		user: 'root',
-		password : '',
-		port : 3306, //port mysql
-		database:'flatiron',
-		debug: true
-	},'request')
-);
+app.use(function logErrors(err, req, res, next) {
+	console.error(err.stack);
+	next(err);
+});
+app.use(function clientErrorHandler(err, req, res, next) {
+	if (req.xhr) {
+		res.status(500).send({ error: 'Something blew up!' });
+	} else {
+		next(err);
+	}
+});
 app.use(function errorHandler(err, req, res, next) {
 	res.status(500);
 	res.render('error', { error: err });
 });
 // routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
-require('./app/apartment/apartment.js')(app);
+require('./app/routes.js')(app, passport, pool); // load our routes and pass in our app and fully configured passport
+require('./app/event/events.js')(app, pool);
 // launch ======================================================================
 app.listen(port);
 console.log('The magic happens on port ' + port);

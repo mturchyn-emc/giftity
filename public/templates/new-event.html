@@ -1,0 +1,18 @@
+<form>
+    <div class="form-group">
+
+        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+        <input type="text" class="form-control input-lg text-center" placeholder="My birthday"
+               ng-model="formData.title">
+        <input type="text" class="form-control input-lg text-center"
+               placeholder="Lets play some strikeball and make BBQ" ng-model="formData.description">
+        <input type="date" class="form-control input-lg text-center" ng-model="formData.eventDate">
+        <select class="form-control input-lg text-center" ng-model="formData.eventType"
+                ng-options="type.id as type.title for type in eventTypes">
+            <option value="">Choose type of event</option>
+        </select>
+    </div>
+
+    <!-- createEvent() WILL CREATE NEW Events    -->
+    <button type="submit" class="btn btn-primary btn-lg" ng-click="createEvent()">Add</button>
+</form>

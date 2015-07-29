@@ -5,6 +5,6 @@ module.exports = {
         'user': 'root'
 
     },
-	'database': 'flatiron',
-    'users_table': 'user'
+	'database': 'giftify',
+    'users_table': 'users'
 };

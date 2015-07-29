@@ -1,0 +1,14 @@
+<div id="event-list" class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+
+        <!-- LOOP OVER THE EVENTS IN $scope.events -->
+        <div class="checkbox" ng-repeat="event in events">
+            <label>
+                {{ event.event_date | date:'MM/dd/yyyy @ h:mma' }} {{ event.title }}
+            </label>
+        </div>
+
+    </div>
+
+    <a class="btn btn-primary btn-lg" href="#new-event">Add</a>
+</div>

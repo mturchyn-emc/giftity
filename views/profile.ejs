@@ -1,40 +1,58 @@
-<!-- views/profile.ejs -->
 <!doctype html>
-<html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="Event">
 <head>
-	<title>Flat Iron</title>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	<style>
-		body 		{ padding-top:80px; word-wrap:break-word; }
-	</style>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Optimize mobile viewport -->
+
+    <title>Giftify</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/bootstrap-responsive.css">
+    <!-- load bootstrap -->
+    <style>
+        body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
+    </style>
+
+
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-route.js"></script>
+
+    <script src="../js/core.js"></script>
+
 </head>
 <body>
-<div class="container">
 
-	<div class="page-header text-center">
-		<h1><span class="fa fa-anchor"></span> Profile Page</h1>
-		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
-	</div>
-
-	<div class="row">
-
-		<!-- LOCAL INFORMATION -->
-		<div class="col-sm-6">
-			<div class="well">
-				<h3><span class="fa fa-user"></span> Local</h3>
-
-					<p>
-						<strong>id</strong>: <%= user.id %><br>
-						<strong>username</strong>: <%= user.username %><br>
-						<strong>password</strong>: <%= user.password %>
-					</p>
-
-			</div>
-		</div>
-
-	</div>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Giftify</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li class="active"><a href="#">Dashboard</a></li>
+                    <li><a href="#new-event">New Event</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+            <p class="navbar-text pull-right">
+                <a class="navbar-link" href="/logout">Logout</a></li>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="container" ng-view>
 
 </div>
+
 </body>
 </html>

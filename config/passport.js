@@ -26,7 +26,7 @@ module.exports = function(passport) {
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        connection.query("SELECT * FROM user WHERE id = ? ",[id], function(err, rows){
+        connection.query("SELECT * FROM users WHERE id = ? ",[id], function(err, rows){
             done(err, rows[0]);
         });
     });
@@ -48,7 +48,7 @@ module.exports = function(passport) {
         function(req, email, password, done) {
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            connection.query("SELECT * FROM user WHERE email = ?",[email], function(err, rows) {
+            connection.query("SELECT * FROM users WHERE email = ?",[email], function(err, rows) {
                 if (err)
                     return done(err);
                 if (rows.length) {
@@ -61,7 +61,7 @@ module.exports = function(passport) {
                         password: bcrypt.hashSync(password, null, null)  // use the generateHash function in our user model
                     };
 
-                    var insertQuery = "INSERT INTO user ( email, password ) values (?,?)";
+                    var insertQuery = "INSERT INTO users ( email, password ) values (?,?)";
 
                     connection.query(insertQuery,[newUserMysql.email, newUserMysql.password],function(err, rows) {
                         if (err) {
@@ -91,7 +91,7 @@ module.exports = function(passport) {
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, email, password, done) { // callback with email and password from our form
-            connection.query("SELECT * FROM user WHERE email = ?",[email], function(err, rows){
+            connection.query("SELECT * FROM users WHERE email = ?",[email], function(err, rows){
                 if (err)
                     return done(err);
                 if (!rows.length) {
